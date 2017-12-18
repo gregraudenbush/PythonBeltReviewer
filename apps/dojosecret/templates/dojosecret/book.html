@@ -1,0 +1,67 @@
+<html>
+<head>
+    <style>
+    body {
+        background-color: linen;
+    }
+    .div3{
+        display: inline-block;
+        
+        vertical-align: top;
+        width: 1000px;
+
+    }
+    .div1 {
+        float: left;
+        border-style: solid;
+        width: 300px;
+        padding-left: 10px;
+        margin: 5px;
+    }
+    .div2 {
+        
+        
+        float: right;
+        border-style: solid;
+        width: 300px;
+        padding-left: 10px;
+        margin-left: 500px;
+    }
+    h1 {
+        color: maroon;
+        
+    } 
+    </style>
+</head>
+<body>
+<h1>{{ book.title }}</h1>
+<h2>by {{ book.author.name }}</h2>
+
+<h3>Reviews</h3>
+{% for review in reviews %}
+<p>{{ review.review }}</p>
+<p>Rating {{ review.rating }}/5</p>
+<a href="/user/{{review.user.id}}">{{ review.user.first_name}} {{ review.user.last_name}}</a> {{ review.created_at }}
+{% endfor %}
+<h2>Add a New Review!!!</h2>
+<form action='/review' method='POST'>
+    {% csrf_token %}
+        <input type="hidden" name="author" value="{{ book.author.name }}">
+        <input type="hidden" name="title" value="{{ book.title }}">
+        <label for="">Review</label><br><br>
+            
+            
+            <textarea name='review' rows="4" cols="60">
+            </textarea><br><br>
+        <label for="">Star Rating</label> 
+        
+                <select name ="rating">
+                    <option value="1">*</option>
+                    <option value="2">**</option>
+                    <option value="3">***</option>
+                    <option value="4">****</option>
+                    <option value="5">*****</option>
+                </select><br><br>
+        <input type="submit" value="Post Review!">
+  </form>
+</body>

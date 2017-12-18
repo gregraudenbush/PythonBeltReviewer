@@ -1,0 +1,89 @@
+<html>
+<head>
+    <style>
+    body {
+        background-color: linen;
+    }
+    .div3{
+        display: inline-block;
+        
+        vertical-align: top;
+        width: 1000px;
+
+    }
+    .div1 {
+        float: left;
+        border-style: solid;
+        width: 300px;
+        padding-left: 10px;
+        margin: 5px;
+    }
+    .div2 {
+        
+        
+        float: right;
+        border-style: solid;
+        width: 300px;
+        padding-left: 10px;
+        margin-left: 500px;
+    }
+    h1 {
+        color: maroon;
+        margin-left: 40px;
+    } 
+    </style>
+
+  <title>Book Reviews</title>
+</head>
+<body>
+ <form action='/add' method='POST'>
+    {% csrf_token %}
+      <input type="submit" value="Add A Review">
+  </form>
+ <form action='/' method='POST'>
+    {% csrf_token %}
+      <input type="submit" value="Logout">
+  </form>
+               
+     
+  <h1>Hello {{ user.first_name }}</h1>
+  <h2>Book reviews</h2>
+
+
+    
+    {% for review in reviews %}
+    <div class="div1" >
+        
+
+      <p>{{review.book.title}} by {{review.book.author.name}}</p>
+      
+      <p>Rating {{review.rating}}/5</p>
+        <p>{{review.review}}</p>
+        <p>{{review.created_at}} by</p>
+        <a href="/user/{{review.user.id}}">{{ review.user.first_name }} {{ review.user.last_name }}</a><br>
+        {% if user == review.user %}
+          <form action='/delete' method='POST'>
+          {% csrf_token %}
+          <input type="hidden" name="bookid" value="{{ review.book.title }}">
+          <input type="hidden" name="id" value="{{ review.id }}">
+          <input type="submit" value="delete">
+          </form>
+        {% endif %}
+    </div>  
+      {% endfor %}
+  
+
+    <div class="div2">
+      <h4>Books with Reviews</h4>
+    {% for book in book %}
+    <a href="/book/{{book.id}}">{{ book.title }}</a><br>
+    {% endfor %}
+    </div>
+
+
+  
+    
+
+  <!--</div>  -->
+</body>
+</html>

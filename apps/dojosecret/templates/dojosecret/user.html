@@ -1,0 +1,49 @@
+<html>
+<head>
+    <style>
+    body {
+        background-color: linen;
+    }
+    .div3{
+        display: inline-block;
+        
+        vertical-align: top;
+        width: 1000px;
+
+    }
+    .div1 {
+        float: left;
+        border-style: solid;
+        width: 300px;
+        padding-left: 10px;
+        margin: 5px;
+    }
+    .div2 {
+        
+        
+        float: right;
+        border-style: solid;
+        width: 300px;
+        padding-left: 10px;
+        margin-left: 500px;
+    }
+    h1 {
+        color: maroon;
+        
+    } 
+    </style>
+</head>
+<body>
+<h1>{{ user.first_name }} {{ user.last_name }}</h1>
+<h1>{{ user.email }}</h1>
+<h1>Number of Reviews: {{ count }}</h1>
+
+{% for i in review %}
+<h2><a href="/book/{{i.book.id}}">{{ i.book.title }}</a></h2>
+<h4> {{i.created_at}}</h4>
+
+{% endfor %}
+
+
+
+</body>
